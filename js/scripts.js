@@ -57,7 +57,7 @@ console.log(userInput);
 //numbers NOT divisible by 1000:
     var thouSlot = "";
 
-    var userInputHund = userInput.toString();
+    var userInputHund = userInput;
     if (parseInt(userInputHund) / 100 >= 1) {
       var hundMult = parseInt(userInputHund / 100);
       if (hundMult === 9) {
@@ -72,7 +72,7 @@ console.log(userInput);
       }
 
       var userInputTen=
-      userInputHund.slice(1, userInputHund.length);
+      userInputHund.toString().slice(1, userInputHund.length);
       if (parseInt(userInputTen) / 10 >= 1) {
         var tenMult = parseInt(userInputTen / 10);
         if (tenMult === 9) {
@@ -102,9 +102,42 @@ console.log(userInput);
           }
         }
       }
+    } else {
+      thouSlot = "";
+      hundSlot = "";
+
+      var userInputTen = userInput;
+      if (parseInt(userInputTen) / 10 >= 1) {
+        var tenMult = parseInt(userInputTen / 10);
+        if (tenMult === 9) {
+          var tenSlot = numeralArr[2] + numeralArr[4];
+        } else if (tenMult >= 5 && tenMult <= 8) {
+          var tenSlotA = tenMult - 5;
+          var tenSlot = numeralArr[3] + numeralArr[2].repeat(tenSlotA);
+        } else if (tenMult === 4) {
+          var tenSlot = numeralArr[2] + numeralArr[3];
+        } else {
+          var tenSlot = numeralArr[2].repeat(tenMult);
+        }
+
+        var userInputOne=
+        userInputTen.toString().slice(1, userInputTen.length);
+        if (parseInt(userInputOne) / 1 >= 1) {
+          var oneMult = parseInt(userInputOne / 1);
+          if (oneMult === 9) {
+            var oneSlot = numeralArr[0] + numeralArr[2];
+          } else if (oneMult >= 5 && oneMult <=8) {
+            var oneSlotA = oneMult - 5;
+            var oneSlot = numeralArr[1] + numeralArr[0].repeat(oneSlotA);
+          } else if (oneMult === 4) {
+            var oneSlot = numeralArr[0] + numeralArr[1];
+          } else {
+            var oneSlot = numeralArr[0].repeat(oneMult);
+          }
+        }
+      }
     }
   }
-
 
   var resultArr = [thouSlot + "-" + hundSlot + "-" + tenSlot + "-" + oneSlot];
   // console.log("thouMult = " + thouMult);
