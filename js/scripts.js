@@ -9,6 +9,6 @@ $(document).ready(function() {
     event.preventDefault();
     var userInput = parseInt($("input#num-enter").val());
     var finalResult = romanNumNums(userInput);
-    $("finalResult").text(finalResult);
+    $(".final-result").text(finalResult);
   });
 });
