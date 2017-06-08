@@ -1,22 +1,28 @@
 //BizNasty Logic Below
 var romanNumNums = function(userInput) {
   var numeralArr = ["I", "V", "X", "L", "C", "D", "M"];
-  var resultArr = [];
 
   if (userInput / 1000 >= 1) {
     var thouMult = userInput / 1000;
     var thouSlot = numeralArr[6].repeat(thouMult);
-    resultArr.push(thouSlot);
 
     var userInputHund = userInput.toString().slice(1, userInput.length);
-
-    console.log(userInputHund);
-
-    if (userInputHund / 100 >= 1) {
-      // var hundMult =
+    if (parseInt(userInputHund) / 100 >= 1) {
+      var hundMult = parseInt(userInputHund) / 100;
+      if (hundMult === 9) {
+        var hundSlot = numeralArr[4] + numeralArr[6];
+      } else if (hundMult >= 5 && hundMult <= 8) {
+        var hundSlotA = hundMult - 5;
+        var hundSlot = numeralArr[5] + numeralArr[4].repeat(hundSlotA);
+      } else if (hundMult === 4) {
+        var hundSlot = numeralArr[4] + numeralArr[5];
+      } else {
+        var hundSlot = numeralArr[4].repeat(hundMult);
+      }
     }
   }
-
+  var resultArr = [thouSlot + hundSlot];
+  console.log(resultArr);
   var resultString = resultArr.toString();
   return resultString;
 
