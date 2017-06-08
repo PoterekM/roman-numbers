@@ -7,6 +7,14 @@ var romanNumNums = function(userInput) {
     var thouMult = userInput / 1000;
     var thouSlot = numeralArr[6].repeat(thouMult);
     resultArr.push(thouSlot);
+
+    var userInputHund = userInput.toString().slice(1, userInput.length);
+
+    console.log(userInputHund);
+
+    if (userInputHund / 100 >= 1) {
+      // var hundMult =
+    }
   }
 
   var resultString = resultArr.toString();
