@@ -1,7 +1,6 @@
 //BizNasty Logic Below
 var romanNumNums = function(userInput) {
   var numeralArr = ["I", "V", "X", "L", "C", "D", "M"];
-console.log(userInput);
   if (userInput / 1000 >= 1) {
 //numbers divisible by 1000:
     var thouMult = parseInt(userInput / 1000);
@@ -54,7 +53,7 @@ console.log(userInput);
       }
     }
   } else {
-//numbers NOT divisible by 1000:
+//numbers NOT divisible by 1000 that ARE divisible by 100:
     var thouSlot = "";
 
     var userInputHund = userInput;
@@ -103,9 +102,9 @@ console.log(userInput);
         }
       }
     } else {
+//numbers NOT divisible by 1000 OR 100, that ARE divisible by 10:
       thouSlot = "";
       hundSlot = "";
-
       var userInputTen = userInput;
       if (parseInt(userInputTen) / 10 >= 1) {
         var tenMult = parseInt(userInputTen / 10);
@@ -116,12 +115,46 @@ console.log(userInput);
           var tenSlot = numeralArr[3] + numeralArr[2].repeat(tenSlotA);
         } else if (tenMult === 4) {
           var tenSlot = numeralArr[2] + numeralArr[3];
-        } else {
+        } else if (tenMult <= 3 || tenMult >= 2) {
           var tenSlot = numeralArr[2].repeat(tenMult);
+        } else if (tenMult === 1) {
+          var tenSlot = numeralArr[2];
+        } else {
+          alert("Error, you fail!")
         }
+
+        console.log("userInputTen equals " + userInputTen)
 
         var userInputOne=
         userInputTen.toString().slice(1, userInputTen.length);
+        if (userInputOne === 0) {
+          var oneSlot = "";
+        } else if (parseInt(userInputOne) / 1 >= 1) {
+          var oneMult = parseInt(userInputOne / 1);
+          if (oneMult === 9) {
+            var oneSlot = numeralArr[0] + numeralArr[2];
+          } else if (oneMult >= 5 && oneMult <=8) {
+            var oneSlotA = oneMult - 5;
+            var oneSlot = numeralArr[1] + numeralArr[0].repeat(oneSlotA);
+          } else if (oneMult === 4) {
+            var oneSlot = numeralArr[0] + numeralArr[1];
+          } else if (oneMult >= 2 || oneMult <= 3) {
+            var oneSlot = numeralArr[0].repeat(oneMult);
+          } else if (oneMult === 1) {
+            var oneSlot = numeralArr[0];
+          } else if (oneMult === 0) {
+            var oneSlot = "";
+          } else {
+            alert("Error, you fail!")
+          }
+        }
+      } else {
+//numbers that are NOT divisible by 1000, 100, or 10. They are divisible by 1
+    thouSlot = "";
+    hundSlot = "";
+    tenSlot = "";
+
+        var userInputOne = userInput;
         if (parseInt(userInputOne) / 1 >= 1) {
           var oneMult = parseInt(userInputOne / 1);
           if (oneMult === 9) {
@@ -131,23 +164,30 @@ console.log(userInput);
             var oneSlot = numeralArr[1] + numeralArr[0].repeat(oneSlotA);
           } else if (oneMult === 4) {
             var oneSlot = numeralArr[0] + numeralArr[1];
-          } else {
+          } else if (oneMult >= 2 || oneMult <= 3) {
             var oneSlot = numeralArr[0].repeat(oneMult);
+          } else if (oneMult === 0) {
+            alert("There is no roman numeral for zero, dummy");
           }
         }
-      }
+      } //closes single digits
     }
   }
 
-  var resultArr = [thouSlot + "-" + hundSlot + "-" + tenSlot + "-" + oneSlot];
-  // console.log("thouMult = " + thouMult);
-  // console.log("hundMult = " + hundMult);
-  // console.log("tenMult = " + tenMult);
-  // console.log("oneMult = " + oneMult);
-  var resultString = resultArr.toString();
-  return resultString;
+  var resultArr = [thouSlot, hundSlot, tenSlot, oneSlot];
 
+  for (var i = 0; i < resultArr.length; i += 1) {
+    if (resultArr[i] === undefined) {
+      resultArr[i] = "";
+    }
+  };
+  var finalArr = resultArr.join(",");
+  console.log(finalArr);
+  var resultString = finalArr.toString();
+  return resultString;
 };
+
+
 //UI Logic Below
 $(document).ready(function() {
   $("#submit").submit(function(event) {
